@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Moby Deck - Current Readings</title>
+	<meta name="keywords" content="image grid, effect, inspiration, css, javascript, animation, masonry" />
+	<meta name="author" content="Codrops" />
+	<link rel="shortcut icon" href="favicon.ico">
+	<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.3.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/demo.css" />
+	<link rel="stylesheet" type="text/css" href="css/style2.css" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<script src="js/modernizr-custom.js"></script>
+</head>
+<style>
+body {
+	background-image: url("https://49.media.tumblr.com/7ba7a5394f1547c9c97a2f00a93fc29b/tumblr_o1j2uyNZOY1srftd2o1_500.gif");
+	}
+	</style>
+<body class="demo-2">
+	<div class="container">
+	
+		<header class="codrops-header">
+			<h1>Moby Deck<span></span></h1>
+			<nav class="codrops-demos">
+
+			</nav>
+		</header>
+		<div class="content">
+			<div class="grid">
+	
+				<div class="grid__item" data-size="850x850">
+					<a href="img/original/GOI.png" class="img-wrap"><img src="img/thumbs/GOI.jpg" alt="img10" />
+						<div class="description description--grid">
+							<h3>The Geography of the Imagination: Forty Essays</h3>
+							<p>"The Geography of the Imagination," reprinted here, might be his finest essay, which means it might be the finest essay written in the last half-century or so. Davenport's free-range mind discovers patterns and archetypes where others have seen only discontinuities or, at best, dim resemblances, tracing arabesques of thought that connect Edgar Allan Poe to Alaric the Visigoth, Helen of Troy, Jupiter, Thomas Moore, Thomas Jefferson, Oswald Spengler; Spengler to James Joyce; O. Henry to Persephone; Carlo Collodi's "Pinocchio" to Ovid and Gnosticism and Pygmalion and the Book of Jonah; Thoreau to Diogenes; Eudora Welty to Ovid; Mark Twain to "a fifth-century Athenian mime." And all of these to Grant Wood's "American Gothic," which Davenport reads as a symbolic mosaic of the Industrial Revolution, European Protestantism, Egyptian history, Netherlandish painting, Mediterranean iconography and a dozen other cultural complexes.
+							<em>&mdash; Michael Robbins</em></p>
+							<div class="details">
+								<ul>
+									<li><i class="material-icons md-18" style="padding-right:5px;">person</i><span>Guy Davenport</span></li>
+									<li><i class="material-icons md-18">import_contacts</i><span>384 pages</span></li>
+									<li><i class="material-icons md-18">domain</i><span>Modern Lit Critique</span></li>
+									<li><i class="material-icons md-18">publish</i><span>1981</span></li>
+								</ul>
+							</div>
+						</div>
+					</a>
+				</div>
+				
+			</div>
+			<!-- /grid -->
+			<div class="preview">
+				<button class="action action--close"><i class="fa fa-times"></i><span class="text-hidden">Close</span></button>
+				<div class="description description--preview"></div>
+			</div>
+			<!-- /preview -->
+		</div>
+		<!-- /content -->
+
+	</div>
+	<!-- /container -->
+	<script src="js/imagesloaded.pkgd.min.js"></script>
+	<script src="js/masonry.pkgd.min.js"></script>
+	<script src="js/classie.js"></script>
+	<script src="js/main.js"></script>
+	<script>
+		(function() {
+			var support = { transitions: Modernizr.csstransitions },
+				// transition end event name
+				transEndEventNames = { 'WebkitTransition': 'webkitTransitionEnd', 'MozTransition': 'transitionend', 'OTransition': 'oTransitionEnd', 'msTransition': 'MSTransitionEnd', 'transition': 'transitionend' },
+				transEndEventName = transEndEventNames[ Modernizr.prefixed( 'transition' ) ],
+				onEndTransition = function( el, callback ) {
+					var onEndCallbackFn = function( ev ) {
+						if( support.transitions ) {
+							if( ev.target != this ) return;
+							this.removeEventListener( transEndEventName, onEndCallbackFn );
+						}
+						if( callback && typeof callback === 'function' ) { callback.call(this); }
+					};
+					if( support.transitions ) {
+						el.addEventListener( transEndEventName, onEndCallbackFn );
+					}
+					else {
+						onEndCallbackFn();
+					}
+				};
+
+			new GridFx(document.querySelector('.grid'), {
+				imgPosition : {
+					x : -0.5,
+					y : 1
+				},
+				onOpenItem : function(instance, item) {
+					instance.items.forEach(function(el) {
+						if(item != el) {
+							var delay = Math.floor(Math.random() * 50);
+							el.style.WebkitTransition = 'opacity .5s ' + delay + 'ms cubic-bezier(.7,0,.3,1), -webkit-transform .5s ' + delay + 'ms cubic-bezier(.7,0,.3,1)';
+							el.style.transition = 'opacity .5s ' + delay + 'ms cubic-bezier(.7,0,.3,1), transform .5s ' + delay + 'ms cubic-bezier(.7,0,.3,1)';
+							el.style.WebkitTransform = 'scale3d(0.1,0.1,1)';
+							el.style.transform = 'scale3d(0.1,0.1,1)';
+							el.style.opacity = 0;
+						}
+					});
+				},
+				onCloseItem : function(instance, item) {
+					instance.items.forEach(function(el) {
+						if(item != el) {
+							el.style.WebkitTransition = 'opacity .4s, -webkit-transform .4s';
+							el.style.transition = 'opacity .4s, transform .4s';
+							el.style.WebkitTransform = 'scale3d(1,1,1)';
+							el.style.transform = 'scale3d(1,1,1)';
+							el.style.opacity = 1;
+
+							onEndTransition(el, function() {
+								el.style.transition = 'none';
+								el.style.WebkitTransform = 'none';
+							});
+						}
+					});
+				}
+			});
+		})();
+	</script>
+</body>
+
+</html>
